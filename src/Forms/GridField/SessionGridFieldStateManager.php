@@ -26,8 +26,8 @@ class SessionGridFieldStateManager implements GridFieldStateManagerInterface
             return $sessionStateID;
         }
         $stateKey = $this->getStateKey($gridField);
-        if (isset(self::$state_ids[$stateKey])) {
-            $sessionStateID = self::$state_ids[$stateKey];
+        if (isset(static::$state_ids[$stateKey])) {
+            $sessionStateID = static::$state_ids[$stateKey];
         } elseif ($create) {
             $sessionStateID = substr(md5(time()), 0, 8);
             // we don't want session state id to be strictly numeric, since this is used as a session key,
@@ -35,7 +35,7 @@ class SessionGridFieldStateManager implements GridFieldStateManagerInterface
             if (is_numeric($sessionStateID)) {
                 $sessionStateID .= 'a';
             }
-            self::$state_ids[$stateKey] = $sessionStateID;
+            static::$state_ids[$stateKey] = $sessionStateID;
         }
         return $sessionStateID;
     }
